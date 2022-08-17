@@ -28,7 +28,7 @@ class WeatherViewModel extends ChangeNotifier {
   void fetchData() async {
     isLoading = true;
     notifyListeners();
-    myModel = await weatherApi.getfirstWeather();
+    myModel = await weatherApi.getSeoulWeather();
     notifyListeners();
     isLoading = false;
     notifyListeners();

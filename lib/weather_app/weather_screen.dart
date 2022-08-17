@@ -30,6 +30,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               onSelected: (City item) {
                 setState(() {
                   selectedCity = item.name;
+                  weatherViewmodel.setSelectedCity(selectedCity);
                 });
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<City>>[
@@ -68,6 +69,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ? const CircularProgressIndicator()
           : Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('${weatherViewmodel.myModel.name}',style: TextStyle(fontSize: 30),),
+
+                      ]),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
