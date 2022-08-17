@@ -1,4 +1,4 @@
-class WhetherModel {
+class WeatherModel {
   Coord? coord;
   List<Weather>? weather;
   String? base;
@@ -13,22 +13,22 @@ class WhetherModel {
   String? name;
   num? cod;
 
-  WhetherModel(
+  WeatherModel(
       {this.coord,
-        this.weather,
-        this.base,
-        this.main,
-        this.visibility,
-        this.wind,
-        this.clouds,
-        this.dt,
-        this.sys,
-        this.timezone,
-        this.id,
-        this.name,
-        this.cod});
+      this.weather,
+      this.base,
+      this.main,
+      this.visibility,
+      this.wind,
+      this.clouds,
+      this.dt,
+      this.sys,
+      this.timezone,
+      this.id,
+      this.name,
+      this.cod});
 
-  WhetherModel.fromJson(Map<String, dynamic> json) {
+  WeatherModel.fromJson(Map<String, dynamic> json) {
     coord = json['coord'] != null ? Coord.fromJson(json['coord']) : null;
     if (json['weather'] != null) {
       weather = <Weather>[];
@@ -40,8 +40,7 @@ class WhetherModel {
     main = json['main'] != null ? Main.fromJson(json['main']) : null;
     visibility = json['visibility'];
     wind = json['wind'] != null ? Wind.fromJson(json['wind']) : null;
-    clouds =
-    json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null;
+    clouds = json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null;
     dt = json['dt'];
     sys = json['sys'] != null ? Sys.fromJson(json['sys']) : null;
     timezone = json['timezone'];
@@ -82,8 +81,8 @@ class WhetherModel {
 }
 
 class Coord {
-  double? lon;
-  double? lat;
+  num? lon;
+  num? lat;
 
   Coord({this.lon, this.lat});
 
@@ -126,10 +125,10 @@ class Weather {
 }
 
 class Main {
-  double? temp;
-  double? feelsLike;
-  double? tempMin;
-  double? tempMax;
+  num? temp;
+  num? feelsLike;
+  num? tempMin;
+  num? tempMax;
   num? pressure;
   num? humidity;
   num? seaLevel;
@@ -137,13 +136,13 @@ class Main {
 
   Main(
       {this.temp,
-        this.feelsLike,
-        this.tempMin,
-        this.tempMax,
-        this.pressure,
-        this.humidity,
-        this.seaLevel,
-        this.grndLevel});
+      this.feelsLike,
+      this.tempMin,
+      this.tempMax,
+      this.pressure,
+      this.humidity,
+      this.seaLevel,
+      this.grndLevel});
 
   Main.fromJson(Map<String, dynamic> json) {
     temp = json['temp'];
@@ -171,9 +170,9 @@ class Main {
 }
 
 class Wind {
-  double? speed;
+  num? speed;
   num? deg;
-  double? gust;
+  num? gust;
 
   Wind({this.speed, this.deg, this.gust});
 

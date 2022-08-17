@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/weather_app/weather_api.dart';
 import 'package:weather_app/weather_app/weather_view_model.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -13,10 +12,6 @@ class WeatherScreen extends StatefulWidget {
 enum City { Seoul, Ulsan, Daejeon, Daegu, Busan, Gwangju, Incheon }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  final weatherViewmodel = WeatherViewModel();
-  final weatherApi = WeatherApi();
-  String selectedCity = '';
-
   @override
   Widget build(BuildContext context) {
     final weatherViewModel = context.watch<WeatherViewModel>();
@@ -28,10 +23,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           PopupMenuButton<City>(
               // Callback that sets the selected popup menu item.
               onSelected: (City item) {
-                setState(() {
-                  selectedCity = item.name;
-                  weatherViewmodel.setSelectedCity(selectedCity);
-                });
+                weatherViewModel.setSelectedCity(item.name);
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<City>>[
                     const PopupMenuItem<City>(
@@ -66,7 +58,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ],
       ),
       body: weatherViewModel.isLoading == true
-          ? const CircularProgressIndicator()
+          ? Center(child: const CircularProgressIndicator())
           : Column(
               children: [
                 Padding(
@@ -74,8 +66,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('${weatherViewmodel.myModel.name}',style: TextStyle(fontSize: 30),),
-
+                        Text(
+                          '${weatherViewModel.myModel.name}',
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ]),
                 ),
                 Padding(
@@ -87,7 +81,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text('${weatherViewmodel.myModel.weather?[0].main}'),
+                        Text('${weatherViewModel.myModel.weather?[0].main}'),
                       ]),
                 ),
                 Padding(
@@ -99,8 +93,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(weatherViewmodel
-                            .getCel(weatherViewmodel.myModel.main!.temp!)
+                        Text(weatherViewModel
+                            .getCelsius(weatherViewModel.myModel.main!.temp!)
                             .toStringAsFixed(2)),
                       ]),
                 ),
@@ -113,8 +107,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(weatherViewmodel
-                            .getCel(weatherViewmodel.myModel.main!.feelsLike)
+                        Text(weatherViewModel
+                            .getCelsius(
+                                weatherViewModel.myModel.main!.feelsLike)
                             .toStringAsFixed(2)),
                       ]),
                 ),
@@ -127,8 +122,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(weatherViewmodel
-                            .getCel(weatherViewmodel.myModel.main!.tempMax)
+                        Text(weatherViewModel
+                            .getCelsius(weatherViewModel.myModel.main!.tempMax)
                             .toStringAsFixed(2)),
                       ]),
                 ),
@@ -141,8 +136,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(weatherViewmodel
-                            .getCel(weatherViewmodel.myModel.main!.tempMin)
+                        Text(weatherViewModel
+                            .getCelsius(weatherViewModel.myModel.main!.tempMin)
                             .toStringAsFixed(2)),
                       ]),
                 ),
@@ -155,7 +150,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text('${weatherViewmodel.myModel.main!.humidity}%'),
+                        Text('${weatherViewModel.myModel.main!.humidity}%'),
                       ]),
                 ),
                 Padding(
@@ -167,7 +162,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       const SizedBox(
                         width: 4,
                       ),
-                      Text('${weatherViewmodel.myModel.wind!.speed}'),
+                      Text('${weatherViewModel.myModel.wind!.speed}'),
                     ],
                   ),
                 ),
